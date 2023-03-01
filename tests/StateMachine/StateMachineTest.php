@@ -183,6 +183,6 @@ class StateMachineTest extends TestCase
         $sm->addTransition(new Transition('t5', [MockStateful::DECLINED], MockStateful::REVIEWED));
         $sm->addTransition(new Transition('t6', [MockStateful::REVIEWED], MockStateful::CHANGE_REQUESTED));
         $sm->addTransition(new Transition('t7', [MockStateful::CHANGE_REQUESTED], MockStateful::DRAFT));
-        $sm->addTransition(new Transition('t7', [MockStateful::CHANGE_REQUESTED], MockStateful::REVIEWED));
+        $sm->addTransition(new Transition('t8', [MockStateful::CHANGE_REQUESTED], MockStateful::REVIEWED));
     }
 }
