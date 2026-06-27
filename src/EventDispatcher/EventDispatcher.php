@@ -21,7 +21,7 @@ class EventDispatcher
         return $this;
     }
 
-    public function dispatch(string $eventName, Event $event = null): Event
+    public function dispatch(string $eventName, ?Event $event = null): Event
     {
         $event = $event ?: new Event();
 

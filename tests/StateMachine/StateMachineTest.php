@@ -17,9 +17,9 @@ class StateMachineTest extends TestCase
         $sm = $this->createStateMachine($s);
         $state = $sm->getState(MockStateful::DRAFT);
 
-        $this->assertEquals(MockStateful::DRAFT, $state->getName());
-        $this->assertTrue($state->isInitial());
-        $this->assertFalse($state->isNormal());
+        self::assertEquals(MockStateful::DRAFT, $state->getName());
+        self::assertTrue($state->isInitial());
+        self::assertFalse($state->isNormal());
     }
 
     public function testShouldAddTransition(): void
@@ -29,7 +29,7 @@ class StateMachineTest extends TestCase
 
         $t1 = $sm->getTransition('t1');
 
-        $this->assertEquals('t1', $t1->getName());
+        self::assertEquals('t1', $t1->getName());
     }
 
     public function testShouldThrowExceptionWhenNotInitialized(): void
@@ -63,7 +63,7 @@ class StateMachineTest extends TestCase
     {
         $s = new MockStateful();
         $sm = $this->createStateMachine($s);
-        $this->assertEquals(MockStateful::DRAFT, $sm->getCurrentState()->getName());
+        self::assertEquals(MockStateful::DRAFT, $sm->getCurrentState()->getName());
     }
 
     public function testShouldThrowExceptionForWrongTransition(): void
@@ -81,8 +81,8 @@ class StateMachineTest extends TestCase
         $state = $sm->getState(MockStateful::DRAFT);
 
         $transitions = $state->getTransitions();
-        $this->assertNotEmpty($transitions);
-        $this->assertTrue(in_array('t1', $transitions));
+        self::assertNotEmpty($transitions);
+        self::assertTrue(in_array('t1', $transitions));
     }
 
     public function testShouldBeAbleToCheckForCanTransitions(): void
@@ -90,14 +90,14 @@ class StateMachineTest extends TestCase
         $s = new MockStateful(MockStateful::DRAFT);
         $sm = $this->createStateMachine($s);
 
-        $this->assertTrue($sm->can('t1'));
+        self::assertTrue($sm->can('t1'));
 
         $sm->apply('t1');
-        $this->assertTrue($sm->can('t2'));
+        self::assertTrue($sm->can('t2'));
 
         $sm->apply('t2');
-        $this->assertTrue($sm->can('t3'));
-        $this->assertTrue($sm->can('t4'));
+        self::assertTrue($sm->can('t3'));
+        self::assertTrue($sm->can('t4'));
     }
 
     public function testShouldRunEvents(): void
@@ -116,11 +116,11 @@ class StateMachineTest extends TestCase
         $sm->getDispatcher()->addListener('t1', $listener);
         $sm->apply('t1');
 
-        $this->assertEquals(
+        self::assertEquals(
             sprintf('state:%s_eventName:t1_transition:t1', MockStateful::DRAFT),
             $payload
         );
-        $this->assertEquals(MockStateful::REVIEWED, $s->getFiniteState());
+        self::assertEquals(MockStateful::REVIEWED, $s->getFiniteState());
     }
 
     public function testShouldAddStatesFromTransitions(): void
@@ -130,16 +130,16 @@ class StateMachineTest extends TestCase
         $this->createTransition($sm);
         $sm->initialize();
 
-        $this->assertTrue($sm->can('t1'));
-        $this->assertFalse($sm->can('t2'));
-        $this->assertFalse($sm->can('t3'));
+        self::assertTrue($sm->can('t1'));
+        self::assertFalse($sm->can('t2'));
+        self::assertFalse($sm->can('t3'));
 
         $sm->apply('t1');
-        $this->assertTrue($sm->can('t2'));
+        self::assertTrue($sm->can('t2'));
 
         $sm->apply('t2');
-        $this->assertTrue($sm->can('t3'));
-        $this->assertTrue($sm->can('t4'));
+        self::assertTrue($sm->can('t3'));
+        self::assertTrue($sm->can('t4'));
     }
 
     public function testShouldThrowExceptionForNotInitialState(): void

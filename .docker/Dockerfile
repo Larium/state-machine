@@ -1,7 +1,7 @@
-FROM php:8.1-cli
+FROM php:8.4-cli
 WORKDIR "/opt/php"
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
     apt-get install -y zip libzip-dev && \
