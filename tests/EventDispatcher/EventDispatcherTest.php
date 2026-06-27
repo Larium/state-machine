@@ -24,16 +24,16 @@ class EventDispatcherTest extends TestCase
     {
         $d = new EventDispatcher();
         $d->addListener('CREATED', function (Event $event, string $evenName, EventDispatcher $dispatcher) {
-            $this->assertEquals(0, $this->counter);
+            self::assertEquals(0, $this->counter);
             $this->counter++;
         }, 0)->addListener('CREATED', function () {
-            $this->assertEquals(1, $this->counter);
+            self::assertEquals(1, $this->counter);
             $this->counter++;
         }, 1)->addListener('CREATED', function () {
-            $this->assertEquals(3, $this->counter);
+            self::assertEquals(3, $this->counter);
             $this->counter++;
         }, 3)->addListener('CREATED', function () {
-            $this->assertEquals(2, $this->counter);
+            self::assertEquals(2, $this->counter);
             $this->counter++;
         }, 2);
 
@@ -45,16 +45,16 @@ class EventDispatcherTest extends TestCase
     {
         $d = new EventDispatcher();
         $d->addListener('CREATED', function (Event $event, string $evenName, EventDispatcher $dispatcher) {
-            $this->assertEquals(0, $this->counter);
+            self::assertEquals(0, $this->counter);
             $this->counter++;
         })->addListener('CREATED', function () {
-            $this->assertEquals(1, $this->counter);
+            self::assertEquals(1, $this->counter);
             $this->counter++;
         })->addListener('CREATED', function () {
-            $this->assertEquals(2, $this->counter);
+            self::assertEquals(2, $this->counter);
             $this->counter++;
         })->addListener('CREATED', function () {
-            $this->assertEquals(3, $this->counter);
+            self::assertEquals(3, $this->counter);
             $this->counter++;
         });
 
@@ -66,16 +66,16 @@ class EventDispatcherTest extends TestCase
     {
         $d = new EventDispatcher();
         $d->addListener('CREATED', function (Event $event, string $evenName, EventDispatcher $dispatcher) {
-            $this->assertEquals(0, $this->counter);
+            self::assertEquals(0, $this->counter);
             $this->counter++;
         }, 0)->addListener('CREATED', function () {
-            $this->assertEquals(1, $this->counter);
+            self::assertEquals(1, $this->counter);
             $this->counter++;
         }, 1)->addListener('UPDATED', function () {
-            $this->assertEquals(0, $this->counter);
+            self::assertEquals(0, $this->counter);
             $this->counter++;
         }, 0)->addListener('UPDATED', function () {
-            $this->assertEquals(1, $this->counter);
+            self::assertEquals(1, $this->counter);
             $this->counter++;
         }, 1);
 
@@ -95,6 +95,6 @@ class EventDispatcherTest extends TestCase
         $this->counter = 0;
         $d->dispatch('UPDATED');
 
-        $this->assertEquals(0, $this->counter);
+        self::assertEquals(0, $this->counter);
     }
 }

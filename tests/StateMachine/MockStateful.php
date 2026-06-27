@@ -20,7 +20,7 @@ class MockStateful implements Stateful
 
     private ?string $state;
 
-    public function __construct(string $state = null)
+    public function __construct(?string $state = null)
     {
         $this->state = $state;
     }
